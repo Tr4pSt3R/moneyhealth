@@ -22,6 +22,37 @@ const Statement = () => {
     return _.sum(statement.expenditures.map((expenditure) => expenditure.amount))
   }
 
+  const ratingRatio = () => {
+    return totalExpenditure() / totalIncome()
+  }
+
+  const ratingGrade = () => {
+    let ratio = ratingRatio()
+    let grade;
+
+    if(_.inRange(ratio, 0.0, 0.1)) {
+      grade = 'A';
+    }
+
+    if(_.inRange(ratio, 0.1, 0.3)) {
+      grade = 'B';
+    }
+
+    if(_.inRange(ratio, 0.3, 0.5)) {
+       grade = 'C';
+    }
+
+    if(_.gt(ratio, 0.5)) {
+      grade = 'D';
+    }
+
+    return grade
+  }
+
+  const disposableIncome = () => {
+    return totalIncome() - totalExpenditure()
+  }
+
   return (
     <>
       <h2>Income</h2>
@@ -35,7 +66,11 @@ const Statement = () => {
       }
 
       <div data-cy="disposable-income">
-        Disposable income: {totalIncome() - totalExpenditure()}
+        Disposable income: { disposableIncome() }
+      </div>
+
+      <div data-cy="rating">
+        Rating: { ratingGrade() }
       </div>
     </>
   )

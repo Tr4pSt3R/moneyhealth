@@ -46,5 +46,12 @@ describe('Money Health Dashboard', () => {
       cy.wait('@getStatements')
       cy.get('[data-cy="disposable-income"]').contains('2337')
     });
+
+    it('should display income-expenditure rating', () => {
+      cy.intercept('/statement', { fixture: 'statements.json' }).as('getStatements')
+      cy.visit('/')
+      cy.wait('@getStatements')
+      cy.get('[data-cy="rating"]').contains('Rating: B')
+    });
   })
 })
