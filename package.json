@@ -38,6 +38,7 @@
   ],
   "devDependencies": {
     "cypress": "^13.6.1",
+    "lodash": "^4.17.21",
     "webpack-dev-server": "4"
   }
 }

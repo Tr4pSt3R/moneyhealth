@@ -38,4 +38,13 @@ describe('Money Health Dashboard', () => {
       cy.contains('Income successfully added to statement')
     })
   })
+
+  describe('Statement', () => {
+    it('should display disposable income', () => {
+      cy.intercept('/statement', { fixture: 'statements.json' }).as('getStatements')
+      cy.visit('/')
+      cy.wait('@getStatements')
+      cy.get('[data-cy="disposable-income"]').contains('2337')
+    });
+  })
 })

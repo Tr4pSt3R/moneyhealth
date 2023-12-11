@@ -1,0 +1,10 @@
+{
+  "incomes": [
+    { "id":1,"title":"Salary","amount":2500 },
+    { "id":2,"title":"Paper round","amount":200 }
+  ],
+  "expenditures": [
+    { "id":1,"title":"Loan Repayment","amount":343 },
+    { "id":2,"title":"Health Insurance","amount":20 }
+  ]
+}

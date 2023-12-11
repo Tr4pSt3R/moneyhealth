@@ -4,7 +4,7 @@ const DisplayStatement = (props) => {
   return (
     <>
       {
-        <div key={props.statement.id}>
+        <div>
           <span>{props.statement.title}</span>
           <span>{props.statement.amount}</span>
         </div>
