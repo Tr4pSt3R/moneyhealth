@@ -9,7 +9,10 @@ class ExpenditureController < ApplicationController
     if expenditure.save
       render json: { notification: 'Expenditure successfully added to statement', errors: '' }, status: :created
     else
-      render json: { notification: 'Expenditure could not be saved to statement', errors: expenditure.errors.full_messages },
+      render json: {
+               notification: 'Expenditure could not be saved to statement',
+               errors: expenditure.errors.full_messages
+             },
              status: :unprocessable_entity
     end
   end
