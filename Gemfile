@@ -59,7 +59,7 @@ group :test do
   gem 'selenium-webdriver'
 end
 
-gem 'react-rails', '= 3.1'
+gem 'react-rails', '> 3.1'
 gem 'rubocop', require: false
 gem 'rubocop-capybara', require: false
 gem 'rubocop-rails', require: false
@@ -67,5 +67,7 @@ gem 'rubocop-rspec', require: false
 gem 'shakapacker', '= 7.1'
 
 group :development, :test do
+  gem 'binding_of_caller'
+  gem 'pry-rails'
   gem 'rspec-rails', '~> 6.1.0'
 end

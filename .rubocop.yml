@@ -1,0 +1,17 @@
+require:
+ - rubocop-capybara
+ - rubocop-rails
+ - rubocop-rspec
+
+AllCops:
+  NewCops: enable
+
+Metrics/BlockLength:
+  Exclude:
+   - config/environments/**/*.rb
+
+Style/Documentation:
+ Enabled: false
+
+Layout/LineLength:
+  Max: 120
