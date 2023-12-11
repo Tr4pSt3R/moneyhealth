@@ -1,19 +1,19 @@
 import React, {useState} from "react"
 
-const Income = () => {
-  const [incomeDetails, setIncome] = useState({ title: '', amount: 0})
+const Expenditure = () => {
+  const [expenditureDetails, setExpenditure] = useState({ title: '', amount: 0})
   const [responseDetails, setResponseDetails] = useState( { notification: '', errors: []})
 
   const handleTitleChange = (event) => {
     event.preventDefault()
 
-    setIncome({...incomeDetails, title: event.target.value})
+    setExpenditure({...expenditureDetails, title: event.target.value})
   }
 
   const handleAmountChange = (event) => {
     event.preventDefault()
 
-    setIncome({...incomeDetails, amount: event.target.value})
+    setExpenditure({...expenditureDetails, amount: event.target.value})
   }
 
   const options = {
@@ -22,13 +22,13 @@ const Income = () => {
       'Content-Type': 'application/json'
     },
     credentials: 'same-origin',
-    body: JSON.stringify({ income: incomeDetails })
+    body: JSON.stringify({ expenditure: expenditureDetails })
   }
 
-  const handleIncomeSubmission = (event) => {
+  const handleExpenditureSubmission = (event) => {
     event.preventDefault()
 
-    fetch('/income', options)
+    fetch('/expenditure', options)
       .then(response => response.json())
       .then(data => {
         console.log(data)
@@ -42,23 +42,23 @@ const Income = () => {
       { responseDetails.notification }
       <label>Title</label>
       <input
-        value={incomeDetails.title}
+        value={expenditureDetails.title}
         onChange={event => handleTitleChange(event)}
-        data-cy='income-title'
+        data-cy='expenditure-title'
       />
       <label>Amount</label>
       <input
-        value={incomeDetails.amount}
+        value={expenditureDetails.amount}
         onChange={event => handleAmountChange(event)}
-        data-cy='income-amount'
+        data-cy='expenditure-amount'
       />
       <input type="submit"
              value="Submit"
-             onClick={event => handleIncomeSubmission(event)}
-             data-cy='submit-income'
+             onClick={event => handleExpenditureSubmission(event)}
+             data-cy='submit-expenditure'
       />
     </>
   )
 }
 
-export default Income
+export default Expenditure

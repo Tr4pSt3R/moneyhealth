@@ -17,7 +17,7 @@ RSpec.describe 'Incomes' do
     end
 
     context 'when provided with valid attributes' do
-      let(:params) { { income: { title: 'Loan repayment', amount: 200 } } }
+      let(:params) { { income: { title: 'Salary', amount: 200 } } }
 
       it 'creates an income' do
         post_request
