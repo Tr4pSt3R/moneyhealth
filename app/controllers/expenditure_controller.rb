@@ -1,18 +1,17 @@
 # frozen_string_literal: true
 
 class ExpenditureController < ApplicationController
-  protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
 
   def create
-    expenditure = Expenditure.new expenditure_params
+    expenditure = Expenditure.build(expenditure_params)
 
-    if expenditure.save
-      render json: { notification: 'Expenditure successfully added to statement', errors: '' }, status: :created
+    if expenditure.valid?
+      if current_customer.statements.create(cashflow: expenditure)
+        render json: { notification: 'Expenditure successfully added to statement', errors: [] }, status: :created
+      end
     else
-      render json: {
-               notification: 'Expenditure could not be saved to statement',
-               errors: expenditure.errors.full_messages
-             },
+      render json: { notification: 'Expenditure could not be saved to statement', errors: expenditure.errors.full_messages },
              status: :unprocessable_entity
     end
   end

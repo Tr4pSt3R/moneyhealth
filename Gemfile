@@ -72,3 +72,5 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails', '~> 6.1.0'
 end
+
+gem 'devise', '~> 4.9'

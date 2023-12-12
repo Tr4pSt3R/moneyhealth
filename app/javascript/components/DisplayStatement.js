@@ -3,12 +3,10 @@ import React, {useEffect, useState} from "react"
 const DisplayStatement = (props) => {
   return (
     <>
-      {
-        <div>
-          <span>{props.statement.title}</span>
-          <span>{props.statement.amount}</span>
-        </div>
-      }
+      <tr>
+        <td>{props.statement.title}</td>
+        <td>{props.statement.amount}</td>
+      </tr>
     </>
   )
 }

@@ -17,9 +17,20 @@ RSpec.describe 'Incomes' do
     end
 
     context 'when provided with valid attributes' do
+      let(:customer) do
+        Customer.create(
+          first_name: 'John',
+          last_name: 'Doe',
+          email: 'john.doe@example.com',
+          password: '123456',
+          password_confirmation: '123456'
+        )
+      end
+
       let(:params) { { income: { title: 'Salary', amount: 200 } } }
 
       it 'creates an income' do
+        sign_in customer
         post_request
 
         expect(response).to have_http_status(:created)

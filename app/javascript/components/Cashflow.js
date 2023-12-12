@@ -1,22 +1,35 @@
 import React, {useState} from "react"
+import PropTypes from "prop-types"
 import {Button, Card, FormControl, FormLabel, Typography} from "@mui/joy";
-import {InfoOutlined} from "@mui/icons-material";
-import cashflow from "./Cashflow";
 
-const Income = () => {
-  const [incomeDetails, setIncome] = useState({ title: '', amount: 0})
+const Cashflow = (props) => {
+  const [cashflowDetails, setCashflow] = useState({ title: '', amount: 0})
   const [responseDetails, setResponseDetails] = useState( { notification: '', errors: []})
 
   const handleTitleChange = (event) => {
     event.preventDefault()
 
-    setIncome({...incomeDetails, title: event.target.value})
+    setCashflow({...cashflowDetails, title: event.target.value})
   }
 
   const handleAmountChange = (event) => {
     event.preventDefault()
 
-    setIncome({...incomeDetails, amount: event.target.value})
+    setCashflow({...cashflowDetails, amount: event.target.value})
+  }
+
+  const details = () => {
+    let body_details;
+
+    switch (props.type) {
+      case 'Income':
+        body_details = { income: cashflowDetails };
+        break;
+      case 'Expenditure':
+        body_details = { expenditure: cashflowDetails };
+        break;
+    }
+    return body_details
   }
 
   const options = {
@@ -25,13 +38,17 @@ const Income = () => {
       'Content-Type': 'application/json'
     },
     credentials: 'same-origin',
-    body: JSON.stringify({ income: incomeDetails })
+    body: JSON.stringify(details())
   }
 
-  const handleIncomeSubmission = (event) => {
+  const requestUrl = () => {
+    return _.lowerCase('/' + props.type)
+  }
+
+  const handleCashflowSubmission = (event) => {
     event.preventDefault()
 
-    fetch('/income', options)
+    fetch(requestUrl(), options)
       .then(response => response.json())
       .then(data => setResponseDetails(data))
       .catch(error => console.error(error))
@@ -51,34 +68,34 @@ const Income = () => {
               }}
         >
           <Typography level="title-lg">
-            Add income
+            Add {props.type}
           </Typography>
           <FormControl>
             <FormLabel>Title</FormLabel>
             <input
               name='title'
-              placeholder='Salary'
-              value={incomeDetails.title}
+              placeholder='Salary, Mortgage, etc.'
+              value={cashflowDetails.title}
               onChange={event => handleTitleChange(event)}
-              data-cy='income-title'
+              data-cy={`${_.lowerCase(props.type)}-title`}
             />
           </FormControl>
           <FormControl>
             <FormLabel>Amount</FormLabel>
             <input
               name='amount'
-              value={incomeDetails.amount}
+              value={cashflowDetails.amount}
               onChange={event => handleAmountChange(event)}
-              data-cy='income-amount'
+              data-cy={`${_.lowerCase(props.type)}-amount`}
             />
           </FormControl>
           <FormControl>
             <Button sx={{ mt: 1 }}
                     type="submit"
                     value="Submit"
-                    onClick={event => handleIncomeSubmission(event)}
-                    data-cy='submit-income'>
-              Submit income
+                    onClick={event => handleCashflowSubmission(event)}
+                    data-cy={`submit-${_.lowerCase(props.type)}`}>
+              Submit {props.type}
             </Button>
           </FormControl>
         </Card>
@@ -87,4 +104,8 @@ const Income = () => {
   )
 }
 
-export default Income
+Cashflow.propTypes = {
+  type: PropTypes.string
+}
+
+export default Cashflow

@@ -2,8 +2,8 @@
 
 class StatementController < ApplicationController
   def index
-    incomes = Income.all
-    expenditures = Expenditure.all
+    incomes = current_customer.incomes
+    expenditures = current_customer.expenditures
 
     render json: { incomes:, expenditures: }, status: :ok
   end

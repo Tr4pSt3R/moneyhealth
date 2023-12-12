@@ -1,9 +1,1 @@
-<h1>Money Health Dashboard</h1>
-
-<h2>Add Income</h2>
-<%= react_component('Income') %>
-
-<h2>Add Expenditure</h2>
-<%= react_component('Expenditure') %>
-
-<%= react_component('Dashboard') %>
+<%= react_component('App', { customer_signed_in: customer_signed_in?, current_customer:, csrfParam: request_forgery_protection_token, csrfToken: form_authenticity_token }) %>

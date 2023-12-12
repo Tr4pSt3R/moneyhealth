@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"
 import _ from 'lodash'
 import DisplayStatement from "./DisplayStatement";
+import {Table, Typography} from "@mui/joy";
 
 const Statement = () => {
   const [statement, setStatement] = useState({ incomes: [], expenditures: []})
@@ -55,15 +56,27 @@ const Statement = () => {
 
   return (
     <>
-      <h2>Income</h2>
-      {
-        statement['incomes'].map((statement) => <DisplayStatement key={statement.id} statement={statement}/>)
-      }
+      <Typography level="h3" component="h3">
+        Income
+      </Typography>
+      <Table>
+        <tbody>
+          {
+            statement['incomes'].map((statement) => <DisplayStatement key={statement.id} statement={statement}/>)
+          }
+        </tbody>
+      </Table>
 
-      <h2>Expenditures</h2>
-      {
-        statement['expenditures'].map((statement) => <DisplayStatement key={statement.id} statement={statement}/>)
-      }
+      <Typography level="h3" component="h3">
+        Expenditure
+      </Typography>
+      <Table>
+        <tbody>
+          {
+            statement['expenditures'].map((statement) => <DisplayStatement key={statement.id} statement={statement}/>)
+          }
+        </tbody>
+      </Table>
 
       <div data-cy="disposable-income">
         Disposable income: { disposableIncome() }

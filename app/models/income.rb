@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
 class Income < ApplicationRecord
-  validates :amount, presence: true
+  has_many :statements, dependent: :destroy, as: :cashflow
+  has_many :customers, through: :statements
+
+  validates :title, :amount, presence: true
 end
