@@ -3,16 +3,21 @@ import Authenticate from "./Authenticate";
 import PropTypes from "prop-types";
 import Dashboard from "./Dashboard";
 
-const AuthContext = createContext({customerSignedIn: false })
+export const AuthContext = createContext({ signedIn: false, toggleSignIn: () => {}})
 
 const App = (props) => {
-  const [customerSignedIn, setCustomerSignedIn] = useState(false)
+  const [signedIn, setSignedIn] = useState(props.customer_signed_in)
+
+  const toggleSignIn = (value) => {
+    setSignedIn(value)
+  }
+
   return (
-    <AuthContext.Provider value={customerSignedIn}>
+    <AuthContext.Provider value={{ signedIn, toggleSignIn }}>
       {
-        props.customer_signed_in ?
-          <Dashboard current_customer={props.current_customer}/> :
-          <Authenticate csrfToken={props.csrfToken}/>
+        signedIn ?
+          <Dashboard current_customer={props.current_customer} csrfToken={props.csrfToken}/> :
+          <Authenticate csrfToken={props.csrfToken} />
       }
     </AuthContext.Provider>
   )

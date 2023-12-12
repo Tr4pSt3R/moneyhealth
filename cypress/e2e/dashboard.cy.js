@@ -2,7 +2,6 @@ describe('Money Health App', () => {
   describe('Expenditure', () => {
     beforeEach(() => {
       cy.login({email: 'john.doe@example.com', password: '123456'});
-      cy.visit('/')
     })
 
     context('when invalid details are provided', () => {
@@ -27,7 +26,6 @@ describe('Money Health App', () => {
   describe('Income', () => {
     beforeEach(() => {
       cy.login({email: 'john.doe@example.com', password: '123456'});
-      cy.visit('/')
     })
 
     context('when invalid details are provided', () => {
@@ -54,7 +52,6 @@ describe('Money Health App', () => {
      cy.login({email: 'john.doe@example.com', password: '123456'});
 
      cy.intercept('/statement', { fixture: 'statements.json' }).as('getStatements')
-     cy.visit('/')
      cy.wait('@getStatements')
    })
 

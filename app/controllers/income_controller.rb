@@ -7,7 +7,7 @@ class IncomeController < ApplicationController
     income = Income.build(income_params)
 
     if income.valid?
-      if current_customer.statements.build(cashflow: income)
+      if current_customer.statements.create(cashflow: income)
         render json: { notification: 'Income successfully added to statement', errors: [] }, status: :created
       end
     else

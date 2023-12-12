@@ -11,7 +11,8 @@ class ExpenditureController < ApplicationController
         render json: { notification: 'Expenditure successfully added to statement', errors: [] }, status: :created
       end
     else
-      render json: { notification: 'Expenditure could not be saved to statement', errors: expenditure.errors.full_messages },
+      render json: { notification: 'Expenditure could not be saved to statement',
+                     errors: expenditure.errors.full_messages },
              status: :unprocessable_entity
     end
   end
