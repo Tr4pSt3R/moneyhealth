@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import PropTypes from "prop-types"
 import {Button, Card, FormControl, FormLabel, Typography} from "@mui/joy";
 
-const Cashflow = (props) => {
+const Cashflow = ({ type, handleAddNewCashflow }) => {
   const [cashflowDetails, setCashflow] = useState({ title: '', amount: 0})
   const [responseDetails, setResponseDetails] = useState( { notification: '', errors: []})
 
@@ -21,7 +21,7 @@ const Cashflow = (props) => {
   const details = () => {
     let body_details;
 
-    switch (props.type) {
+    switch (type) {
       case 'Income':
         body_details = { income: cashflowDetails };
         break;
@@ -42,7 +42,7 @@ const Cashflow = (props) => {
   }
 
   const requestUrl = () => {
-    return _.lowerCase('/' + props.type)
+    return _.lowerCase('/' + type)
   }
 
   const handleCashflowSubmission = (event) => {
@@ -50,7 +50,11 @@ const Cashflow = (props) => {
 
     fetch(requestUrl(), options)
       .then(response => response.json())
-      .then(data => setResponseDetails(data))
+      .then(data => {
+        setResponseDetails(data)
+        handleAddNewCashflow()
+        setCashflow({ title: '', amount: 0 })
+      })
       .catch(error => console.error(error))
   }
 
@@ -68,7 +72,7 @@ const Cashflow = (props) => {
               }}
         >
           <Typography level="title-lg">
-            Add {props.type}
+            Add {type}
           </Typography>
           <FormControl>
             <FormLabel>Title</FormLabel>
@@ -77,7 +81,7 @@ const Cashflow = (props) => {
               placeholder='Salary, Mortgage, etc.'
               value={cashflowDetails.title}
               onChange={event => handleTitleChange(event)}
-              data-cy={`${_.lowerCase(props.type)}-title`}
+              data-cy={`${_.lowerCase(type)}-title`}
             />
           </FormControl>
           <FormControl>
@@ -86,7 +90,7 @@ const Cashflow = (props) => {
               name='amount'
               value={cashflowDetails.amount}
               onChange={event => handleAmountChange(event)}
-              data-cy={`${_.lowerCase(props.type)}-amount`}
+              data-cy={`${_.lowerCase(type)}-amount`}
             />
           </FormControl>
           <FormControl>
@@ -94,8 +98,8 @@ const Cashflow = (props) => {
                     type="submit"
                     value="Submit"
                     onClick={event => handleCashflowSubmission(event)}
-                    data-cy={`submit-${_.lowerCase(props.type)}`}>
-              Submit {props.type}
+                    data-cy={`submit-${_.lowerCase(type)}`}>
+              Submit {type}
             </Button>
           </FormControl>
         </Card>
@@ -105,7 +109,8 @@ const Cashflow = (props) => {
 }
 
 Cashflow.propTypes = {
-  type: PropTypes.string
+  type: PropTypes.string,
+  handleAddNewCashflow: PropTypes.func
 }
 
 export default Cashflow

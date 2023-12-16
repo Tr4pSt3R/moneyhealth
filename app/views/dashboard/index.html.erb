@@ -1,1 +1,8 @@
-<%= react_component('App', { customer_signed_in: customer_signed_in?, current_customer:, csrfParam: request_forgery_protection_token, csrfToken: form_authenticity_token }) %>
+<%= react_component('App',
+                    {
+                      customer_signed_in: customer_signed_in?,
+                      current_customer:,
+                      csrfParam: request_forgery_protection_token,
+                      csrfToken: form_authenticity_token
+                    }
+    ) %>

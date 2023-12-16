@@ -1,20 +1,9 @@
-import React, {useEffect, useState} from "react"
+import React, {useContext, useEffect, useState} from "react"
 import _ from 'lodash'
 import DisplayStatement from "./DisplayStatement";
 import {Table, Typography} from "@mui/joy";
 
-const Statement = () => {
-  const [statement, setStatement] = useState({ incomes: [], expenditures: []})
-
-  useEffect(() => {
-    fetch('/statement')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data)
-        setStatement(data)
-      })
-  }, [])
-
+const Statement = ({ statement }) => {
   const totalIncome = () => {
     return _.sum(statement.incomes.map((income) => income.amount))
   }
